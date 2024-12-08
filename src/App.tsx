@@ -28,7 +28,7 @@ function App() {
         {id: v1(), title: "React", isDone: true},
     ]);
 
-    console.log(tasks)
+    // console.log(tasks)
     let [filter, setFilter] = useState<filterType>("all")
 
     let tasksForToDoList = tasks
@@ -40,11 +40,11 @@ function App() {
     }
 
     function changeStatus(taskId: string, isDone: boolean) {
-       let task= tasks.find(t => t.id === taskId)
+        let task = tasks.find(t => t.id === taskId)
         if (task) {
-            task.isDone=isDone
+            task.isDone = isDone
         }
-        setTasks(tasks)
+        setTasks([...tasks])
     }
 
     function changeFilter(value: filterType) {
@@ -64,8 +64,13 @@ function App() {
 
     return (
         <div className="App">
-            <Todolist title="Movies" tasks={tasksForToDoList} removeTask={removeTask} changeFilter={changeFilter}
-                      addTask={addTask}/>
+            <Todolist title="Movies"
+                      tasks={tasksForToDoList}
+                      removeTask={removeTask}
+                      changeFilter={changeFilter}
+                      addTask={addTask}
+                      changeTaskStatus={changeStatus}
+            />
             {/*<Todolist title="What can i do"  tasks={task2}/>*/}
 
         </div>
