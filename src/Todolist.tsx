@@ -49,9 +49,10 @@ export function Todolist(props: PropsType) {
     }
     let [title, setTitle] = useState("")
     const addTask = () => {
-        if (title.trim() === "") return
+        if (title.trim() === " ") return
 
         props.addTask(newTaskTitle)
+
         setTitle("")
         setNewTaskTitle("")
     }
