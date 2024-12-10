@@ -1,6 +1,7 @@
 import React, {ChangeEvent, useState} from "react";
 
 import {filterType, TasksType} from "./App";
+import {Button} from "./Button";
 
 
 type PropsType = {
@@ -37,25 +38,29 @@ export function Todolist(props: PropsType) {
         </ul>
 
     const [newTaskTitle, setNewTaskTitle] = useState("")
+    let [error, setError] = useState<string | null>(null)
 
     const onNewTitleChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setError(null)
         setNewTaskTitle(e.currentTarget.value)
     }
-    const onKeyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.charCode === 13) {
+    const addTask = () => {
+        if (newTaskTitle.trim() !== "") {
             props.addTask(newTaskTitle)
             setNewTaskTitle("")
+        } else {
+            setError("This Field is required")
         }
     }
-    let [title, setTitle] = useState("")
-    const addTask = () => {
-        if (title.trim() === " ") return
 
-        props.addTask(newTaskTitle)
-
-        setTitle("")
-        setNewTaskTitle("")
+    const onKeyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.charCode === 13) {
+            addTask()
+        }
     }
+
+
+
     const onAllClickHandler = () => props.changeFilter("all")
     const onActiveClickHandler = () => props.changeFilter("active")
     const onCompletedClickHandler = () => props.changeFilter("completed")
@@ -64,13 +69,18 @@ export function Todolist(props: PropsType) {
         <div>
             <h1>{props.title}</h1>
             <div>
-                <input type="text" value={newTaskTitle} onChange={onNewTitleChangeHandler}
-                       onKeyPress={onKeyPressHandler}
+                <input
+                    className={error ? "error" : ""}
+                    type="text"
+                    value={newTaskTitle}
+                    onChange={onNewTitleChangeHandler}
+                    onKeyPress={onKeyPressHandler}
                 />
                 <button
                     onClick={addTask}
                 >+
                 </button>
+                {error && <div className={"error-message"}>{error}</div>}
             </div>
             <ul>
                 {tasksList}
@@ -79,8 +89,10 @@ export function Todolist(props: PropsType) {
             <div>
                 <button onClick={onAllClickHandler}>all
                 </button>
+                <Button  onClick={onActiveClickHandler}>test</Button>
                 <button onClick={onActiveClickHandler}>Active
                 </button>
+                <Button variant={"secondary"} onClick={onCompletedClickHandler}>Completed</Button>
                 <button onClick={onCompletedClickHandler}>Completed
                 </button>
 

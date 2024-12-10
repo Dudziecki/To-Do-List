@@ -64,12 +64,14 @@ function App() {
 
     return (
         <div className="App">
-            <Todolist title="Movies"
-                      tasks={tasksForToDoList}
-                      removeTask={removeTask}
-                      changeFilter={changeFilter}
-                      addTask={addTask}
-                      changeTaskStatus={changeStatus}
+            <Todolist
+
+                title="Movies"
+                tasks={tasksForToDoList}
+                removeTask={removeTask}
+                changeFilter={changeFilter}
+                addTask={addTask}
+                changeTaskStatus={changeStatus}
             />
             {/*<Todolist title="What can i do"  tasks={task2}/>*/}
 
