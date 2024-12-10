@@ -72,6 +72,7 @@ function App() {
                 changeFilter={changeFilter}
                 addTask={addTask}
                 changeTaskStatus={changeStatus}
+                filter={filter}
             />
             {/*<Todolist title="What can i do"  tasks={task2}/>*/}
 
