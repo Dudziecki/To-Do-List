@@ -6,9 +6,10 @@ import {Button} from "./Button";
 
 type PropsType = {
     title: string
+    id:string
     tasks: Array<TasksType>
     removeTask: (id: string) => void
-    changeFilter: (value: filterType) => void
+    changeFilter: (value: filterType,toDoListId:string) => void
     addTask: (title: string) => void
     changeTaskStatus: (taskId: string, isDone: boolean) => void
     filter: filterType
@@ -62,9 +63,9 @@ export function Todolist(props: PropsType) {
     }
 
 
-    const onAllClickHandler = () => props.changeFilter("all")
-    const onActiveClickHandler = () => props.changeFilter("active")
-    const onCompletedClickHandler = () => props.changeFilter("completed")
+    const onAllClickHandler = () => props.changeFilter("all",props.id)
+    const onActiveClickHandler = () => props.changeFilter("active",props.id)
+    const onCompletedClickHandler = () => props.changeFilter("completed",props.id)
 
     return (
         <div>
