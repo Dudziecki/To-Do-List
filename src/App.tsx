@@ -10,10 +10,10 @@ export type TasksType = {
 
 }
 export type filterType = "all" | "active" | "completed"
-type toDoListType={
+type toDoListType = {
     id: string,
     title: string
-    filter:filterType
+    filter: filterType
 }
 
 
@@ -36,8 +36,6 @@ function App() {
     // console.log(tasks)
 
 
-
-
     function changeStatus(taskId: string, isDone: boolean) {
         let task = tasks.find(t => t.id === taskId)
         if (task) {
@@ -46,8 +44,12 @@ function App() {
         setTasks([...tasks])
     }
 
-    function changeFilter(value: filterType,toDoListId:string) {
-
+    function changeFilter(value: filterType, toDoListId: string) {
+        let todoList=todoLists.find(tl=>tl.id===toDoListId)
+        if(todoList){
+            todoList.filter=value
+            setTodoList([...todoLists])
+        }
     }
 
     function removeTask(id: string) {
@@ -60,25 +62,26 @@ function App() {
         let newTasks = [newTask, ...tasks]
         setTasks(newTasks)
     }
-    let toDoList:Array<toDoListType>=[
-        {
-            id:v1(),
-            title:'Movies',
-            filter:'active'
-        },
-        {
-            id:v1(),
-            title:'What to learn',
-            filter:'completed'
-        }
-    ]
 
-
+    let [todoLists, setTodoList] = useState<Array<toDoListType>>(
+        [
+            {
+                id: v1(),
+                title: 'Movies',
+                filter: 'active'
+            },
+            {
+                id: v1(),
+                title: 'What to learn',
+                filter: 'completed'
+            }
+        ]
+    )
 
     return (
         <div className="App">
 
-            {toDoList.map(tl=>{
+            {todoLists.map(tl => {
                 let tasksForToDoList = tasks
                 if (tl.filter === "active") {
                     tasksForToDoList = tasks.filter(t => t.isDone === false)
@@ -86,7 +89,7 @@ function App() {
                 if (tl.filter === "completed") {
                     tasksForToDoList = tasks.filter(t => t.isDone === true)
                 }
-                return(
+                return (
                     <Todolist
                         key={tl.id}
                         id={tl.id}
