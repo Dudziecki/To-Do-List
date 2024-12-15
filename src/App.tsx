@@ -10,6 +10,11 @@ export type TasksType = {
 
 }
 export type filterType = "all" | "active" | "completed"
+type toDoListType={
+    id: string,
+    title: string
+    filter:filterType
+}
 
 
 function App() {
@@ -61,19 +66,38 @@ function App() {
         let newTasks = [newTask, ...tasks]
         setTasks(newTasks)
     }
+    let toDoList:Array<toDoListType>=[
+        {
+            id:v1(),
+            title:'Movies',
+            filter:'active'
+        },
+        {
+            id:v1(),
+            title:'What to learn',
+            filter:'completed'
+        }
+    ]
+
+
 
     return (
         <div className="App">
-            <Todolist
+            {toDoList.map(tl=>{
+                return(
+                    <Todolist
 
-                title="Movies"
-                tasks={tasksForToDoList}
-                removeTask={removeTask}
-                changeFilter={changeFilter}
-                addTask={addTask}
-                changeTaskStatus={changeStatus}
-                filter={filter}
-            />
+                        title={tl.title}
+                        tasks={tasksForToDoList}
+                        removeTask={removeTask}
+                        changeFilter={changeFilter}
+                        addTask={addTask}
+                        changeTaskStatus={changeStatus}
+                        filter={tl.filter}
+                    />
+                )
+            })}
+
             {/*<Todolist title="What can i do"  tasks={task2}/>*/}
 
         </div>
